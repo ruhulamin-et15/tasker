@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
+import { TasksContext } from "../context";
 
-export default function AddModalTask({
-  onHandleTask,
-  taskToUpdate,
-  handleClose,
-}) {
+export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
+  const { dispatch } = useContext(TasksContext);
+
   //local state
   const [task, setTask] = useState(
-    taskToUpdate || {
+    onTaskToUpdate || {
       id: crypto.randomUUID(),
       title: "",
       description: "",
@@ -17,6 +17,23 @@ export default function AddModalTask({
     }
   );
   const [errors, setErrors] = useState({});
+
+  //handle add and update tasks
+  const handleTask = (newTask, isAdd) => {
+    if (isAdd) {
+      dispatch({
+        type: "ADD_TASK",
+        payload: newTask,
+      });
+      toast.success(`${newTask.title} is added successfully`);
+    } else {
+      dispatch({
+        type: "UPDATE_TASK",
+        payload: newTask,
+      });
+      toast.success(`${newTask.title} is updated successfully`);
+    }
+  };
 
   // input validation
   const isFormValid = () => {
@@ -37,7 +54,7 @@ export default function AddModalTask({
     return Object.keys(newErrors).length === 0;
   };
 
-  const [isAdd] = useState(Object.is(taskToUpdate, null));
+  const [isAdd] = useState(Object.is(onTaskToUpdate, null));
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -50,19 +67,20 @@ export default function AddModalTask({
       ...task,
       [name]: value,
     });
-
     setErrors({
       ...errors,
       [name]: "",
     });
   };
 
+  //submit handler
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isFormValid()) {
       return;
     }
-    onHandleTask(task, isAdd);
+    handleTask(task, isAdd);
+    onModalClose();
   };
 
   return (
@@ -140,7 +158,7 @@ export default function AddModalTask({
 
       <div className="mt-16 flex justify-between lg:mt-20">
         <button
-          onClick={handleClose}
+          onClick={onModalClose}
           className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
         >
           Close

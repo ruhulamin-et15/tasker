@@ -1,3 +1,7 @@
 export default function NoTaskFound() {
-  return <p className="text-center text-3xl">No task found, please add one</p>;
+  return (
+    <div className="border border-yellow-500 mx-10 py-10">
+      <p className="text-center text-3xl italic">No task found</p>
+    </div>
+  );
 }

@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { TasksContext } from "../context";
 
-export default function SearchTask({ onSearch }) {
-  const [searchTask, setSearchTask] = useState("");
+export default function SearchTask() {
+  const { state, dispatch } = useContext(TasksContext);
+
+  const handleSearch = (searchTask) => {
+    dispatch({
+      type: "SEARCH_TASK",
+      payload: searchTask,
+    });
+  };
 
   return (
     <form>
@@ -10,10 +18,9 @@ export default function SearchTask({ onSearch }) {
           <input
             type="search"
             id="search-dropdown"
-            value={searchTask}
+            value={state.taskSearch}
             onChange={(e) => {
-              setSearchTask(e.target.value);
-              onSearch(e.target.value);
+              handleSearch(e.target.value);
             }}
             className="z-20 block w-full bg-gray-800 px-4 py-2 pr-10 focus:outline-none"
             placeholder="Search Task"
