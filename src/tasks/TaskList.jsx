@@ -11,7 +11,7 @@ export default function TaskList({ onEditModalOpen }) {
   //task delete handler
   const handleDeleteTask = (taskId, task) => {
     const userConfirmed = window.confirm(
-      "Are you sure you want to delete this task?"
+      `Are you sure you want to delete ${task.title} task?`
     );
     if (userConfirmed) {
       dispatch({

@@ -1,25 +1,24 @@
-import { useContext } from "react";
-import { toast } from "react-toastify";
+import { useContext, useState } from "react";
 import { TasksContext } from "../context";
+import AllDeleteModal from "./AllDeleteModal";
 
 export default function TaskAction({ onOpenModal }) {
-  const { state, dispatch } = useContext(TasksContext);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const { state } = useContext(TasksContext);
 
-  //delete all tasks handler
-  const handleDeleteAllTask = () => {
-    const deleteConfirmed = window.confirm(
-      "Are you sure you want to delete all tasks?"
-    );
-    if (deleteConfirmed) {
-      dispatch({
-        type: "DELETE_ALL_TASKS",
-      });
-      toast.success(`All tasks is deleted successfully`);
-    }
+  const handleModalOpen = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowDeleteModal(false);
   };
 
   return (
     <>
+      {showDeleteModal && (
+        <AllDeleteModal handleModalClose={handleModalClose} />
+      )}
       <button
         onClick={onOpenModal}
         className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold"
@@ -27,7 +26,7 @@ export default function TaskAction({ onOpenModal }) {
         Add Task
       </button>
       <button
-        onClick={handleDeleteAllTask}
+        onClick={handleModalOpen}
         disabled={state.tasks.length === 0}
         className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold"
       >
