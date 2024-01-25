@@ -18,7 +18,7 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
   );
   const [errors, setErrors] = useState({});
 
-  //handle add and update tasks
+  //handle add and update task
   const handleTask = (newTask, isAdd) => {
     if (isAdd) {
       dispatch({
@@ -35,7 +35,7 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
     }
   };
 
-  // input validation
+  //Form validation
   const isFormValid = () => {
     const newErrors = {};
     if (!task.title.trim()) {
@@ -45,10 +45,10 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
       newErrors.description = "Description is required";
     }
     if (!task.tags || !task.tags.length) {
-      newErrors.tags = "Tags are required";
+      newErrors.tags = "Atleast one tag is required";
     }
     if (!task.priority.trim()) {
-      newErrors.priority = "Please select priority";
+      newErrors.priority = "Please select a priority";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -73,7 +73,7 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
     });
   };
 
-  //submit handler
+  //Form submit handler
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isFormValid()) {

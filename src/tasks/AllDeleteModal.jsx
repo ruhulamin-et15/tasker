@@ -7,7 +7,6 @@ export default function DeleteModalTask({ handleModalClose }) {
 
   //delete all tasks handler
   const handleDeleteAllTask = () => {
-    console.log("clicked");
     dispatch({
       type: "DELETE_ALL_TASKS",
     });
@@ -18,7 +17,7 @@ export default function DeleteModalTask({ handleModalClose }) {
   return (
     <div className="overflow-y-auto overflow-x-hidden fixed top-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[420px] sm:max-w-[600px] lg:max-w-[700px] max-h-[95vh] overflow-auto">
-        <div className="relative bg-orange-600 rounded-lg shadow dark:bg-gray-700">
+        <div className="relative bg-gray-600 rounded-lg shadow dark:bg-gray-700">
           <div className="p-4 md:p-5 text-center">
             <svg
               className="mx-auto mb-4 text-yellow-500 w-12 h-12 dark:text-gray-200"
