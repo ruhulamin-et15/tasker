@@ -96,18 +96,16 @@ export default function TaskList({ onEditModalOpen }) {
                   </td>
                   <td>
                     <ul className="flex justify-center gap-1.5 flex-wrap">
-                      {Array.isArray(task.tags)
-                        ? task.tags.map((tag) => (
-                            <li key={tag}>
-                              <span
-                                className="inline-block h-5 whitespace-nowrap rounded-[45px] px-2.5 text-sm capitalize text-[#F4F5F6]"
-                                style={{ backgroundColor: getRandomColor() }}
-                              >
-                                {tag}
-                              </span>
-                            </li>
-                          ))
-                        : null}
+                      {task.tags.map((tag) => (
+                        <li key={tag}>
+                          <span
+                            className="inline-block h-5 whitespace-nowrap rounded-[45px] px-2.5 text-sm capitalize text-[#F4F5F6]"
+                            style={{ backgroundColor: getRandomColor() }}
+                          >
+                            {tag}
+                          </span>
+                        </li>
+                      ))}
                     </ul>
                   </td>
                   <td className="text-center">{task.priority}</td>
