@@ -47,7 +47,7 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
     if (!task.tags || !task.tags.length) {
       newErrors.tags = "Atleast one tag is required";
     }
-    if (!task.priority.trim()) {
+    if (!task.priority.trim() || task.priority === "Select Priority") {
       newErrors.priority = "Please select a priority";
     }
     setErrors(newErrors);
@@ -150,7 +150,7 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
                   id="priority"
                   onChange={handleChange}
                 >
-                  <option value>Select Priority</option>
+                  <option>Select Priority</option>
                   <option value="Low">Low</option>
                   <option value="Medium">Medium</option>
                   <option value="High">High</option>
