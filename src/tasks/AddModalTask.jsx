@@ -20,8 +20,6 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
 
   //handle add and update task
   const handleTask = (newTask, isAdd) => {
-    newTask.tags = Array.isArray(newTask.tags) ? newTask.tags : [newTask.tags];
-
     if (isAdd) {
       dispatch({
         type: "ADD_TASK",
@@ -64,7 +62,7 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
     let value = e.target.value;
 
     if (name === "tags") {
-      value = value.split(",").map((tag) => tag.trim());
+      value = value.split(",");
     }
     setTask({
       ...task,
