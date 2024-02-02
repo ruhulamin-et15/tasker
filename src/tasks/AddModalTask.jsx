@@ -20,6 +20,8 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
 
   //handle add and update task
   const handleTask = (newTask, isAdd) => {
+    newTask.tags = Array.isArray(newTask.tags) ? newTask.tags : [newTask.tags];
+
     if (isAdd) {
       dispatch({
         type: "ADD_TASK",
@@ -44,9 +46,10 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
     if (!task.description.trim()) {
       newErrors.description = "Description is required";
     }
-    if (!task.tags || !task.tags.length) {
-      newErrors.tags = "Atleast one tag is required";
+    if (!task.tags || !task.tags.length || task.tags.includes("")) {
+      newErrors.tags = "At least one tag is required";
     }
+
     if (!task.priority.trim() || task.priority === "Select Priority") {
       newErrors.priority = "Please select a priority";
     }
@@ -61,7 +64,7 @@ export default function AddModalTask({ onModalClose, onTaskToUpdate }) {
     let value = e.target.value;
 
     if (name === "tags") {
-      value = value.split(",");
+      value = value.split(",").map((tag) => tag.trim());
     }
     setTask({
       ...task,
