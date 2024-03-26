@@ -27,7 +27,7 @@ export default function SearchTask() {
             required
           />
           <button
-            type="submit"
+            disabled
             className="absolute right-2 top-0 h-full rounded-e-lg text-white md:right-4"
           >
             <svg
